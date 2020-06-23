@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lasend.desktop.controller.DiscoveryController">
+   <VBox maxWidth="1.7976931348623157E308" prefWidth="900.0">
+      <BorderPane prefHeight="40.0" prefWidth="200.0">
+         <right>
+            <Button mnemonicParsing="false" onAction="#manuallyEnterIpBtn" text="Manually enter IP" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="10.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+         <center>
+            <Label text="Devices on LAN" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </Label>
+         </center>
+         <left>
+            <Button mnemonicParsing="false" onAction="#discoverDevicesOnLan" text="Discover" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </Button>
+         </left>
+      </BorderPane>
+      <ListView fx:id="deviceList" maxWidth="1.7976931348623157E308" prefHeight="410.0" />
+   </VBox>
+</Pane>

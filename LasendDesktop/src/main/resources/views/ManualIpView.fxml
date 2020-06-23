@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="borderPane" maxWidth="350.0" minWidth="350.0" prefHeight="140.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lasend.desktop.controller.ManualIpController">
+    <columnConstraints>
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="103.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="210.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="103.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="260.399984741211" minHeight="0.0" prefHeight="86.99998168945312" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="238.8" minHeight="0.0" prefHeight="52.60001831054687" />
+    </rowConstraints>
+    <Label text="IP address" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <GridPane.margin>
+         <Insets bottom="60.0" left="5.0" right="5.0" top="10.0" />
+      </GridPane.margin></Label>
+    <TextField fx:id="ipTextfield" onKeyPressed="#onEnter" GridPane.columnIndex="1">
+      <GridPane.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </GridPane.margin></TextField>
+    <Button id="startBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#discoverDeviceByIp" text="Discover" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+</GridPane>
