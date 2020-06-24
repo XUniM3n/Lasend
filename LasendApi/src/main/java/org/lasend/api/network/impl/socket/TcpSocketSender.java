@@ -71,7 +71,7 @@ public abstract class TcpSocketSender implements Sender {
         writer.flush();
     }
 
-    public void stop() {
+    public void close() {
         try {
             clientSocket.close();
         } catch (IOException e) {

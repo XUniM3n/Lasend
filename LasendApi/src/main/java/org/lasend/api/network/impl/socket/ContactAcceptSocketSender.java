@@ -56,7 +56,7 @@ public class ContactAcceptSocketSender extends TcpSocketSender implements Contac
 
             String newChatId = SentDataProcessor.processContactAcceptData(invite, contactAcceptDto, payload, remoteDevice, store, senderCallback, exceptionCallback);
 
-            stop();
+            close();
 
             return newChatId;
         } catch (InvalidResponseException | IOException | UnknownInviteAcceptException | UntrustedIdentityException | InvalidKeyException | DeviceAlreadyInContactsException e) {

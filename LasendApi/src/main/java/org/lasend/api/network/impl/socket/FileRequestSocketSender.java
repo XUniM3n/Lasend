@@ -58,20 +58,42 @@ public class FileRequestSocketSender extends TcpSocketSender implements FileRequ
                 SentDataProcessor.processFileRequest(fileRequestDto, payload, remoteDevice, store, senderCallback, exceptionCallback);
             }
 
-            InputStream fileInputStream = EncryptionUtil.decryptInputStream(inputStream, fileLink.getEncryptionKey(), fileLink.getIv());
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            IOUtils.copy(fileInputStream, fileOutputStream);
+            FileReceiverThread fileReceiverThread = new FileReceiverThread(inputStream, file, fileLink);
+            fileReceiverThread.start();
 
-            String fileResultingHash = LasendStoreUtil.getFileHash(file);
-            if (!fileResultingHash.equals(fileLink.getFileHash()) || file.length() != fileLink.getFileSize()) {
-                throw new InvalidFileReceivedException();
-            }
-
-            fileOutputStream.close();
-            stop();
-        } catch (InvalidResponseException | IOException | InvalidFileReceivedException e) {
+        } catch (InvalidResponseException | IOException e) {
             exceptionCallback.onException(e, Thread.currentThread());
             throw e;
+        }
+    }
+
+    private class FileReceiverThread extends Thread {
+        private InputStream inputStream;
+        private File file;
+        private FileLinkMessage fileLink;
+
+        public FileReceiverThread(InputStream encryptedFileStream, File file, FileLinkMessage fileLink) {
+            this.inputStream = encryptedFileStream;
+            this.file = file;
+            this.fileLink = fileLink;
+        }
+
+        @Override
+        public void run() {
+            InputStream fileInputStream = EncryptionUtil.decryptInputStream(inputStream, fileLink.getEncryptionKey(), fileLink.getIv());
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                IOUtils.copy(fileInputStream, fileOutputStream);
+                String fileResultingHash = LasendStoreUtil.getFileHash(file);
+                if (!fileResultingHash.equals(fileLink.getFileHash()) || file.length() != fileLink.getFileSize()) {
+                    exceptionCallback.onReceiveFileException(new InvalidFileReceivedException());
+                }
+                fileOutputStream.close();
+            } catch (IOException e) {
+                exceptionCallback.onReceiveFileException(e);
+            }
+
+            close();
         }
     }
 }

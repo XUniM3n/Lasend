@@ -60,7 +60,7 @@ public class MessageSocketSender extends TcpSocketSender implements MessageSende
             }
 
         } catch (IOException e) {
-            stop();
+            close();
             contactOnline.setMessageSender(null);
             exceptionCallback.onException(e, Thread.currentThread());
             throw e;

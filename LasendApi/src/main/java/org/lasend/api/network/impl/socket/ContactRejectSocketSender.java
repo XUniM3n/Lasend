@@ -3,7 +3,6 @@ package org.lasend.api.network.impl.socket;
 import org.lasend.api.LasendCallbacks;
 import org.lasend.api.constant.NetworkConstants;
 import org.lasend.api.dto.ContactRejectDto;
-import org.lasend.api.dto.DataDto;
 import org.lasend.api.dto.response.ResponseData;
 import org.lasend.api.dto.response.SuccessResponse;
 import org.lasend.api.exception.InvalidResponseException;
@@ -43,7 +42,7 @@ public class ContactRejectSocketSender extends TcpSocketSender implements Contac
 
             SentDataProcessor.processContactRejectData(invite, inviteReject, remoteDevice, store, senderCallback, exceptionCallback);
 
-            stop();
+            close();
         } catch (InvalidResponseException | IOException e) {
             exceptionCallback.onException(e, Thread.currentThread());
             throw e;

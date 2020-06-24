@@ -31,7 +31,7 @@ public class DeviceInfoSocketGetter extends TcpSocketSender implements DeviceInf
 
         Device device = SentDataProcessor.processDeviceInfoRequestData(deviceInfoRequest, response, remoteAddress, store, senderCallback, exceptionCallback);
 
-        stop();
+        close();
 
         return device;
     }

@@ -3,7 +3,6 @@ package org.lasend.api.network.impl.socket;
 import org.lasend.api.LasendCallbacks;
 import org.lasend.api.constant.NetworkConstants;
 import org.lasend.api.dto.ContactRequestDto;
-import org.lasend.api.dto.DataDto;
 import org.lasend.api.dto.response.ResponseData;
 import org.lasend.api.dto.response.SuccessResponse;
 import org.lasend.api.exception.DeviceAlreadyInContactsException;
@@ -13,7 +12,6 @@ import org.lasend.api.network.ContactRequestSender;
 import org.lasend.api.service.SentDataProcessor;
 import org.lasend.api.state.LasendStore;
 
-import javax.xml.ws.Response;
 import java.io.IOException;
 
 public class ContactRequestSocketSender extends TcpSocketSender implements ContactRequestSender {
@@ -41,7 +39,7 @@ public class ContactRequestSocketSender extends TcpSocketSender implements Conta
 
             SentDataProcessor.processContactRequestData(invite, remoteDevice, store, senderCallback, exceptionCallback);
 
-            stop();
+            close();
         } catch (InvalidResponseException | IOException | DeviceAlreadyInContactsException e) {
             exceptionCallback.onException(e, Thread.currentThread());
             throw e;
