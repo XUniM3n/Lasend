@@ -241,6 +241,7 @@ public class LasendApi {
     public void stop() {
         if (isInitialized) {
             dataReceiver.stop();
+            advertisementReceiver.stop();
             isInitialized = false;
         }
     }
