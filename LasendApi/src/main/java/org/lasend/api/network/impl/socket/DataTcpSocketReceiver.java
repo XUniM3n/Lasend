@@ -151,6 +151,7 @@ public class DataTcpSocketReceiver implements DataReceiver, Runnable {
                                 sendObject(new SuccessResponse());
                                 InputStream fileInputStream = sharedFile.getEncryptedInputStream();
                                 IOUtils.copy(fileInputStream, outputStream);
+                                fileInputStream.close();
                             }
                         } else {
                             sendObject(response);

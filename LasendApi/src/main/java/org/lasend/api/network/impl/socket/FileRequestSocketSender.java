@@ -18,7 +18,10 @@ import org.lasend.api.util.LasendStoreUtil;
 import org.whispersystems.libsignal.SessionCipher;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FileRequestSocketSender extends TcpSocketSender implements FileRequestSender {
     private final Device remoteDevice;
@@ -64,6 +67,7 @@ public class FileRequestSocketSender extends TcpSocketSender implements FileRequ
                 throw new InvalidFileReceivedException();
             }
 
+            fileOutputStream.close();
             stop();
         } catch (InvalidResponseException | IOException | InvalidFileReceivedException e) {
             exceptionCallback.onException(e, Thread.currentThread());
